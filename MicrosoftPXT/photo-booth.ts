@@ -3,14 +3,14 @@ let connected = 0
 bluetooth.onBluetoothConnected(() => {
     basic.showString("C")
     connected = 1
+    devices.tellCameraTo(MesCameraEvent.LaunchPhotoMode)
 })
 bluetooth.onBluetoothDisconnected(() => {
     basic.showString("D")
     connected = 0
 })
 input.onButtonPressed(Button.A, () => {
-    if (connected == 1) {
-        basic.showString("Aufnahme")
+    if (connected) {
         counter = 4
         for (let i = 0; i < 4; i++) {
             basic.showNumber(counter)
@@ -39,3 +39,9 @@ input.onButtonPressed(Button.A, () => {
         basic.clearScreen()
     }
 })
+input.onButtonPressed(Button.B, () => {
+    if (connected) {
+        devices.tellCameraTo(MesCameraEvent.ToggleFrontRear)
+    }
+})
+
